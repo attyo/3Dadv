@@ -24,12 +24,18 @@ public class MouseControl : MonoBehaviour
         //Vector3でX,Y方向の回転の度合いを定義
         Vector3 angle = new Vector3(Input.GetAxis("Mouse X") * cam_speed, Input.GetAxis("Mouse Y") * cam_speed, 0);
 
-
-        if (Mathf.Abs(camera.transform.rotation.eulerAngles.x) <= 60f)
+        if (camera.transform.forward.y > 0.7f && angle.y > 0)
         {
-            
+            angle.y = 0;
         }
-        camera.transform.RotateAround(camera.transform.position, -camera.transform.right, angle.y);
+        else
+        if (camera.transform.forward.y < -0.7f && angle.y < 0)
+        {
+            angle.y = 0;
+        }
+        else
+            camera.transform.RotateAround(camera.transform.position, -camera.transform.right, angle.y);
         camera.transform.RotateAround(camera.transform.position, Vector3.up, angle.x);
+
     }
 }
