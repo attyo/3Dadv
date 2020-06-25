@@ -18,6 +18,7 @@ public class test_call : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.GetComponent<PresentWord>().CallConversation(0);
+        Destroy(gameObject);
     }
 
 }
