@@ -45,6 +45,8 @@ public class PresentWord : MonoBehaviour
         }
         else
         {
+            nameT.text = "";
+            text.text = "▼";
             panel.SetActive(false);
             GetComponent<PlayerControl>().controlEnable(true);
         }
@@ -52,19 +54,27 @@ public class PresentWord : MonoBehaviour
     void LoadChapter(int chapter)
     {
         arrayNum = 0;
-        textasset = Resources.Load("filename"+chapter, typeof(TextAsset)) as TextAsset;
+        line = null;
+        lines = null;
+        sentence = null;
+        textasset = null;
+
+        textasset = Resources.Load("filename" + chapter, typeof(TextAsset)) as TextAsset;
         sentence = textasset.text;
 
+        line = new string[sentence.Split('\n').Length];
         line = sentence.Split('\n');
         lines = new string[line.Length, line[0].Split(',').Length];
+
         for (int i = 0; i < line.Length; i++)
         {
             string[] tempwords = line[i].Split(',');
             for (int n = 0; n < line[0].Split(',').Length; n++)
             {
                 lines[i, n] = tempwords[n];
+                Debug.Log(tempwords[n]);
             }
-            Debug.Log(lines[i, 1]);
+           
         }
     }
     public void CallConversation(int chapter)
